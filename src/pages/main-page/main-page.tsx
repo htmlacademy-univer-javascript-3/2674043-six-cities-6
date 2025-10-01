@@ -1,4 +1,4 @@
-import OfferCard from '../../components/OfferCard/OfferCard.tsx';
+import OfferCard from '../../components/offer-card/offer-card.tsx';
 type PlaceCount = {
   countPlace: number;
 }

@@ -1,4 +1,4 @@
-import MainPage from './pages/MainPage/MainPage.tsx';
+import MainPage from './pages/main-page/main-page.tsx';
 
 function App(): JSX.Element {
   return (
