@@ -5,15 +5,20 @@ import OfferPage from './pages/offer-page/offer-page.tsx';
 import FavouritePage from './pages/favourite-page/favourite-page.tsx';
 import NotFound from './pages/not-found/not-found.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
+import { OfferTypeProps } from './types/offer-type.tsx';
 import { AppRoute } from './components/constants/path-route/path-route.tsx';
 
-function App(): JSX.Element {
+type AppProps = {
+  offers: OfferTypeProps[];
+};
+
+function App({offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.ROOT} element={<MainPage countPlace={312} />}></Route>
+        <Route path={AppRoute.ROOT} element={<MainPage countPlace={312} offers={offers}/>}></Route>
         <Route path={AppRoute.LOGIN} element={<LoginPage/>}></Route>
-        <Route path={AppRoute.FAVORITES} element={<PrivateRoute><FavouritePage/></PrivateRoute>}></Route>
+        <Route path={AppRoute.FAVORITES} element={<PrivateRoute><FavouritePage offers={offers}/></PrivateRoute>}></Route>
         <Route path={AppRoute.OFFER} element={<OfferPage/>}></Route>
         <Route path={AppRoute.NOT_FOUND} element={<NotFound/>}></Route>
       </Routes>
