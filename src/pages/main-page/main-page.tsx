@@ -1,9 +1,12 @@
-import OfferCard from '../../components/offer-card/offer-card.tsx';
-type PlaceCount = {
+import { OfferTypeProps } from '../../types/offer-type.tsx';
+import OffersList from '../../components/offer-list/offer-list.tsx';
+
+type MainPageProps = {
   countPlace: number;
+  offers: OfferTypeProps[];
 }
 
-function MainPage({countPlace}: PlaceCount): JSX.Element {
+function MainPage({countPlace, offers}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -93,57 +96,7 @@ function MainPage({countPlace}: PlaceCount): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferCard
-                  isPremium
-                  bookmarks='To bookmarks'
-                  image='img/apartment-01.jpg'
-                  price={120}
-                  title='Wood and stone place'
-                  type='Apartment'
-                  rating='80%'
-                />
-
-                <OfferCard
-                  bookmarks='In bookmarks'
-                  image='img/room.jpg'
-                  price={80}
-                  title='Beautiful'
-                  type='Room'
-                  rating='80%'
-                />
-
-                <OfferCard
-                  bookmarks='To bookmarks'
-                  image='img/apartment-02.jpg'
-                  price={132}
-                  title='Canal View Prinsengracht'
-                  type='Apartment'
-                  rating='80%'
-                />
-
-                <OfferCard
-                  isPremium
-                  bookmarks='To bookmarks'
-                  image='img/apartment-03.jpg'
-                  price={180}
-                  title='Nice, cozy, warm big bed apartment'
-                  type='Apartment'
-                  rating='100%'
-                />
-
-
-                <OfferCard
-                  isPremium
-                  bookmarks='In bookmarks'
-                  image='img/room.jpg'
-                  price={80}
-                  title='Wood and stone place'
-                  type='Room'
-                  rating='80%'
-                />
-
-              </div>
+              <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

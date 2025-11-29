@@ -1,4 +1,21 @@
-function FavouritePage(): JSX.Element {
+import { OfferTypeProps } from '../../types/offer-type.tsx';
+import FavouriteList from '../../components/favourite-list/favourite-list.tsx';
+
+type FavouritePageProps = {
+  offers: OfferTypeProps[];
+};
+
+function FavouritePage({offers}: FavouritePageProps): JSX.Element {
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const offersByCity: { [city: string]: OfferTypeProps[] } = {};
+  favoriteOffers.forEach((offer) => {
+    const cityName = offer.city.name;
+    if (!offersByCity[cityName]) {
+      offersByCity[cityName] = [];
+    }
+    offersByCity[cityName].push(offer);
+  });
+
   return (
     <div className="page">
       <header className="header">
@@ -35,6 +52,18 @@ function FavouritePage(): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
+              {Object.entries(offersByCity).map(([cityName, cityOffers]) => (
+                <li key={cityName} className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="#">
+                        <span>{cityName}</span>
+                      </a>
+                    </div>
+                  </div>
+                  <FavouriteList offers={cityOffers} />
+                </li>
+              ))}
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
