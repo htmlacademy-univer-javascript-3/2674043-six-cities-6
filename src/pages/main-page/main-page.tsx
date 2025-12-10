@@ -1,5 +1,7 @@
 import { OfferTypeProps } from '../../types/offer-type.tsx';
+import {useState} from 'react';
 import OffersList from '../../components/offer-list/offer-list.tsx';
+import Map from '../../components/map/map.tsx';
 
 type MainPageProps = {
   countPlace: number;
@@ -7,6 +9,7 @@ type MainPageProps = {
 }
 
 function MainPage({countPlace, offers}: MainPageProps): JSX.Element {
+  const [chosenIdOffer, setChosenIdOffer] = useState<OfferTypeProps['id'] | null>(null);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -96,11 +99,16 @@ function MainPage({countPlace, offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList
+                offers={offers}
+                setChosenCard={setChosenIdOffer}
+              />
             </section>
-            <div className="cities__right-section">
-              <section className="cities__map map"></section>
-            </div>
+            <Map
+              chosenIdOffer={chosenIdOffer}
+              cityLocation={offers[0].city.location}
+              offers={offers}
+            />
           </div>
         </div>
       </main>

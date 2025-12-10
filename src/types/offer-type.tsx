@@ -1,12 +1,8 @@
+import { CityLocationType } from './city-location-type.tsx';
+
 type CityType = {
   name: string;
-  location: LocationType;
-}
-
-type LocationType = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  location: CityLocationType;
 }
 
 export type OfferTypeProps = {
@@ -16,7 +12,7 @@ export type OfferTypeProps = {
   price: number;
   previewImage: string;
   city: CityType;
-  location: LocationType;
+  location: CityLocationType;
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
