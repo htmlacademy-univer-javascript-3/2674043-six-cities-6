@@ -1,14 +1,12 @@
 import { OfferTypeProps } from '../../types/offer-type.tsx';
 import OfferCard from '../offer-card/offer-card.tsx';
-import {useState} from 'react';
 
 type OffersListProps = {
   offers: OfferTypeProps[];
+  setChosenCard: (id: OfferTypeProps['id'] | null) => void;
 };
 
-function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [chosenCard, setChosenCard] = useState<OfferTypeProps['id'] | null>(null);
-
+function OffersList({ offers, setChosenCard}: OffersListProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -37,9 +35,6 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
             onMouseLeave={() => setChosenCard(null)}
           />
         ))}
-        <div className="cities__right-section">
-          <section className={`cities__map map ${chosenCard}`}></section>
-        </div>
       </div>
     </section>
   );
