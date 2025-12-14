@@ -19,7 +19,7 @@ function App({offers}: AppProps): JSX.Element {
         <Route path={AppRoute.ROOT} element={<MainPage countPlace={312} offers={offers}/>}></Route>
         <Route path={AppRoute.LOGIN} element={<LoginPage/>}></Route>
         <Route path={AppRoute.FAVORITES} element={<PrivateRoute><FavouritePage offers={offers}/></PrivateRoute>}></Route>
-        <Route path={AppRoute.OFFER} element={<OfferPage/>}></Route>
+        <Route path={AppRoute.OFFER} element={<OfferPage offers={offers}/>}></Route>
         <Route path={AppRoute.NOT_FOUND} element={<NotFound/>}></Route>
       </Routes>
     </BrowserRouter>
