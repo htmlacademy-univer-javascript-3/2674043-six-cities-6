@@ -4,9 +4,10 @@ import OfferCard from '../offer-card/offer-card.tsx';
 type OffersListProps = {
   offers: OfferTypeProps[];
   setChosenCard: (id: OfferTypeProps['id'] | null) => void;
+  typeOffer: string;
 };
 
-function OffersList({ offers, setChosenCard}: OffersListProps): JSX.Element {
+function OffersList({ offers, setChosenCard, typeOffer}: OffersListProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -33,6 +34,7 @@ function OffersList({ offers, setChosenCard}: OffersListProps): JSX.Element {
             offer={offer}
             onMouseEnter={() => setChosenCard(offer.id)}
             onMouseLeave={() => setChosenCard(null)}
+            typeOffer={typeOffer}
           />
         ))}
       </div>

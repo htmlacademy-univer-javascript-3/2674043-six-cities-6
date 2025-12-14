@@ -102,13 +102,17 @@ function MainPage({countPlace, offers}: MainPageProps): JSX.Element {
               <OffersList
                 offers={offers}
                 setChosenCard={setChosenIdOffer}
+                typeOffer="cities"
               />
             </section>
-            <Map
-              chosenIdOffer={chosenIdOffer}
-              cityLocation={offers[0].city.location}
-              offers={offers}
-            />
+            <div className="cities__right-section">
+              <Map
+                chosenIdOffer={chosenIdOffer}
+                cityLocation={offers[0].city.location}
+                offers={offers}
+                className='cities__map map'
+              />
+            </div>
           </div>
         </div>
       </main>

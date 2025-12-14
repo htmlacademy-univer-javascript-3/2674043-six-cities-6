@@ -10,6 +10,7 @@ type MapProps = {
   chosenIdOffer: string | null;
   cityLocation: CityLocationType;
   offers: OfferTypeProps[];
+  className: string;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function Map({chosenIdOffer, cityLocation, offers}: MapProps) {
+function Map({chosenIdOffer, cityLocation, offers, className}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityLocation);
 
@@ -47,9 +48,7 @@ function Map({chosenIdOffer, cityLocation, offers}: MapProps) {
 
 
   return (
-    <div className="cities__right-section">
-      <section className='cities__map map' ref={mapRef}></section>
-    </div>
+    <section className={className} ref={mapRef}></section>
   );
 }
 

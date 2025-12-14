@@ -6,9 +6,10 @@ type OfferCardProps = {
   offer: OfferTypeProps;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  typeOffer: string;
 };
 
-function OfferCard({offer, onMouseEnter, onMouseLeave}: OfferCardProps): JSX.Element {
+function OfferCard({offer, onMouseEnter, onMouseLeave, typeOffer}: OfferCardProps): JSX.Element {
   const {
     id,
     isPremium,
@@ -17,11 +18,11 @@ function OfferCard({offer, onMouseEnter, onMouseLeave}: OfferCardProps): JSX.Ele
     price,
     title,
     type,
-    rating
+    rating,
   } = offer;
   return (
     <article
-      className="cities__card place-card"
+      className={`${typeOffer}__card place-card`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -30,7 +31,7 @@ function OfferCard({offer, onMouseEnter, onMouseLeave}: OfferCardProps): JSX.Ele
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${typeOffer}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
