@@ -7,6 +7,15 @@ function useMap(mapRef: RefObject<HTMLDivElement>, cityLocation: CityLocationTyp
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
+    if (map) {
+      map.setView(
+        [cityLocation.latitude, cityLocation.longitude],
+        cityLocation.zoom
+      );
+    }
+  }, [map, cityLocation]);
+
+  useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {

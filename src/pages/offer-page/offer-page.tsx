@@ -167,8 +167,6 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
           </div>
           <Map
             chosenIdOffer={chosenIdOffer}
-            cityLocation={offers[0].city.location}
-            offers={offers.slice(0, 3)}
             className='offer__map map'
           />
         </section>
