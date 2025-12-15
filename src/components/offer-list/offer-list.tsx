@@ -1,17 +1,19 @@
 import { OfferTypeProps } from '../../types/offer-type.tsx';
 import OfferCard from '../offer-card/offer-card.tsx';
+import { useAppSelector } from '../../hooks/index.tsx';
 
 type OffersListProps = {
-  offers: OfferTypeProps[];
   setChosenCard: (id: OfferTypeProps['id'] | null) => void;
   typeOffer: string;
 };
 
-function OffersList({ offers, setChosenCard, typeOffer}: OffersListProps): JSX.Element {
+function OffersList({setChosenCard, typeOffer}: OffersListProps): JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+      <b className="places__found">{offers.length} places to stay in {currentCity.name}</b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>

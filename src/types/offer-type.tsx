@@ -1,9 +1,5 @@
+import { CityType } from './city-type.tsx';
 import { CityLocationType } from './city-location-type.tsx';
-
-type CityType = {
-  name: string;
-  location: CityLocationType;
-}
 
 export type OfferTypeProps = {
   id: string;

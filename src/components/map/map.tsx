@@ -3,13 +3,10 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from './use-map.tsx';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../constants/map-markers/map-markers.tsx';
-import { OfferTypeProps } from '../../types/offer-type.tsx';
-import { CityLocationType } from '../../types/city-location-type.tsx';
+import { useAppSelector } from '../../hooks/index.tsx';
 
 type MapProps = {
   chosenIdOffer: string | null;
-  cityLocation: CityLocationType;
-  offers: OfferTypeProps[];
   className: string;
 }
 
@@ -25,9 +22,12 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function Map({chosenIdOffer, cityLocation, offers, className}: MapProps) {
+function Map({chosenIdOffer, className}: MapProps) {
+  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   const mapRef = useRef(null);
-  const map = useMap(mapRef, cityLocation);
+  const map = useMap(mapRef, city.location);
+
 
   useEffect(() => {
     if (map) {
