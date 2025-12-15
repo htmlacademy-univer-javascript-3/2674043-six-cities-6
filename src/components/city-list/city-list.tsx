@@ -1,7 +1,8 @@
 import { CityType } from '../../types/city-type.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.tsx';
-import {changeCityAction, fillOfferListAction} from '../../store/action.ts';
+import {changeCityAction, fillOfferListAction, chooseSortingOptionsAction} from '../../store/action.ts';
 import { offers } from '../../mocks/offer.ts';
+import { VariantsSorting } from '../constants/variants-sorting/variants-sorting.tsx';
 
 
 type CityListProps = {
@@ -17,6 +18,7 @@ function CityList({cities}: CityListProps) {
 
     dispatch(changeCityAction(chooseCity));
     dispatch(fillOfferListAction(offers.filter((offer) => offer.city.name === nameCity)));
+    dispatch(chooseSortingOptionsAction(VariantsSorting.POPULAR));
   };
 
   return (
