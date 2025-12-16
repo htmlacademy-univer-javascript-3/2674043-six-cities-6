@@ -3,6 +3,7 @@ import OfferCard from '../offer-card/offer-card.tsx';
 import { useAppSelector } from '../../hooks/index.tsx';
 import SortingOption from '../sorting-options/sorting-options.tsx';
 import { getSortedOptions } from '../sorting-options/get-sorted-options.tsx';
+import Spinner from '../spinner/spinner.tsx';
 
 type OffersListProps = {
   setChosenCard: (id: OfferTypeProps['id'] | null) => void;
@@ -10,10 +11,23 @@ type OffersListProps = {
 };
 
 function OffersList({setChosenCard, typeOffer}: OffersListProps): JSX.Element {
+  const isLoadOfferList = useAppSelector((state) => state.isLoadOfferList);
   const currentCity = useAppSelector((state) => state.city);
   const currentSortedOption = useAppSelector((state) => state.sortingOption);
   const offers = useAppSelector((state) => state.offers);
   const sortedOffers = getSortedOptions(offers, currentSortedOption);
+
+  if (!isLoadOfferList) {
+    return (
+      <section className="cities__places places">
+        <h2 className="visually-hidden">Places</h2>
+        <div className="cities__places-list places__list tabs__content">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
