@@ -21,3 +21,6 @@ export const chooseSortingOptionsAction = createAction(Action.CHOOSE_SORTING_OPT
     payload: sortingOption
   }
 ));
+
+export const loadOfferListAction = createAction<OfferTypeProps[]>(Action.LOAD_OFFER_LIST);
+export const changeStatusLoadOfferListAction = createAction<boolean>(Action.CHANGE_STATUS_LOAD_OFFER_LIST);

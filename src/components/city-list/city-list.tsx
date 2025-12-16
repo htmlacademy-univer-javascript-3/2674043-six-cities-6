@@ -1,7 +1,6 @@
 import { CityType } from '../../types/city-type.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.tsx';
 import {changeCityAction, fillOfferListAction, chooseSortingOptionsAction} from '../../store/action.ts';
-import { offers } from '../../mocks/offer.ts';
 import { VariantsSorting } from '../constants/variants-sorting/variants-sorting.tsx';
 
 
@@ -10,6 +9,7 @@ type CityListProps = {
 }
 
 function CityList({cities}: CityListProps) {
+  const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
   const nameOfCities = cities.map((city) => city.name);
   const dispatch = useAppDispatch();

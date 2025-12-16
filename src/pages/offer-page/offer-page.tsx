@@ -4,13 +4,11 @@ import { OfferTypeProps } from '../../types/offer-type.tsx';
 import {useState} from 'react';
 import Map from '../../components/map/map.tsx';
 import NeighbourhoodOfferList from '../../components/neighbourhood-offer-list/neighbourhood-offer-list.tsx';
-
-type OfferPageProps = {
-  offers: OfferTypeProps[];
-}
+import { useAppSelector } from '../../hooks/index.tsx';
 
 
-function OfferPage({offers}: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const [chosenIdOffer, setChosenIdOffer] = useState<OfferTypeProps['id'] | null>(null);
   return (
     <div className="page">

@@ -1,11 +1,10 @@
 import { OfferTypeProps } from '../../types/offer-type.tsx';
 import FavouriteList from '../../components/favourite-list/favourite-list.tsx';
+import { useAppSelector } from '../../hooks/index.tsx';
 
-type FavouritePageProps = {
-  offers: OfferTypeProps[];
-};
 
-function FavouritePage({offers}: FavouritePageProps): JSX.Element {
+function FavouritePage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const offersByCity: { [city: string]: OfferTypeProps[] } = {};
   favoriteOffers.forEach((offer) => {
