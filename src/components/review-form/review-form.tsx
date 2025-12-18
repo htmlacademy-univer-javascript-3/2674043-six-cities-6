@@ -16,7 +16,7 @@ const ratingMap = {
 function ReviewForm() {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   function isValid() {
     return comment.length >= 50 &&

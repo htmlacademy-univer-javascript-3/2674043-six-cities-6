@@ -2,6 +2,7 @@ import { CityType } from '../../types/city-type.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.tsx';
 import {changeCityAction, fillOfferListAction, chooseSortingOptionsAction} from '../../store/action.ts';
 import { VariantsSorting } from '../constants/variants-sorting/variants-sorting.tsx';
+import {memo} from 'react';
 
 
 type CityListProps = {
@@ -10,9 +11,9 @@ type CityListProps = {
 
 function CityList({cities}: CityListProps) {
   const offers = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state.offers.city);
   const nameOfCities = cities.map((city) => city.name);
-  const filteredOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const filteredOffers = offers.offers.filter((offer) => offer.city.name === currentCity.name);
   const dispatch = useAppDispatch();
   const handleCityClick = (nameCity: CityType['name']) => {
     const chooseCity = cities.filter((city: CityType) => city.name === nameCity)[0];
@@ -48,4 +49,5 @@ function CityList({cities}: CityListProps) {
   );
 }
 
-export default CityList;
+const MemoCityList = memo(CityList);
+export default MemoCityList;

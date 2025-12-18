@@ -1,6 +1,7 @@
 import ReviewForm from '../review-form/review-form.tsx';
 import ReviewCard from '../review-card/review-card.tsx';
 import ReviewProps from '../../types/review-card-type.tsx';
+import { memo } from 'react';
 
 type ReviewListProps = {
   reviewCards: ReviewProps[];
@@ -30,4 +31,5 @@ function ReviewList({reviewCards}: ReviewListProps): JSX.Element {
   );
 }
 
-export default ReviewList;
+const MemoReviewList = memo(ReviewList);
+export default MemoReviewList;

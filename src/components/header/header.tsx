@@ -1,10 +1,17 @@
 import { Fragment } from 'react';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../constants/authorization-status/authorization-status.tsx';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../constants/path-route/path-route.tsx';
+import { memo } from 'react';
+import { logoutUser } from '../../store/api-actions.ts';
 
 function HeaderWithAuthorization(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const handleLogoutClick = () => {
+    dispatch(logoutUser());
+  };
+
   return (
     <Fragment>
       <div className="header__left">
@@ -23,7 +30,7 @@ function HeaderWithAuthorization(): JSX.Element {
             </a>
           </li>
           <li className="header__nav-item">
-            <a className="header__nav-link" href="#">
+            <a className="header__nav-link" onClick={handleLogoutClick}>
               <span className="header__signout">Sign out</span>
             </a>
           </li>
@@ -56,7 +63,7 @@ function HeaderWithoutAuthorization(): JSX.Element {
 
 
 function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   return (
     <header className="header">
       <div className="container">
@@ -70,4 +77,5 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+const MemoHeader = memo(Header);
+export default MemoHeader;
