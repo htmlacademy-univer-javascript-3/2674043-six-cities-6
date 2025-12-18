@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/index.tsx';
 import Header from '../../components/header/header.tsx';
 
 function FavouritePage(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const offersByCity: { [city: string]: OfferListType[] } = {};
   favoriteOffers.forEach((offer) => {
