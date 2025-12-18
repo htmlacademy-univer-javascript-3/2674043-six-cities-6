@@ -1,4 +1,4 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import OfferCard from '../offer-card/offer-card.tsx';
 import { useAppSelector } from '../../hooks/index.tsx';
 import SortingOption from '../sorting-options/sorting-options.tsx';
@@ -6,7 +6,7 @@ import { getSortedOptions } from '../sorting-options/get-sorted-options.tsx';
 import Spinner from '../spinner/spinner.tsx';
 
 type OffersListProps = {
-  setChosenCard: (id: OfferTypeProps['id'] | null) => void;
+  setChosenCard: (id: OfferListType['id'] | null) => void;
   typeOffer: string;
 };
 
@@ -14,7 +14,7 @@ function OffersList({setChosenCard, typeOffer}: OffersListProps): JSX.Element {
   const isLoadOfferList = useAppSelector((state) => state.isLoadOfferList);
   const currentCity = useAppSelector((state) => state.city);
   const currentSortedOption = useAppSelector((state) => state.sortingOption);
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.filteredOffersByCity);
   const sortedOffers = getSortedOptions(offers, currentSortedOption);
 
   if (!isLoadOfferList) {

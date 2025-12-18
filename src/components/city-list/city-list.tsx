@@ -12,14 +12,16 @@ function CityList({cities}: CityListProps) {
   const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.city);
   const nameOfCities = cities.map((city) => city.name);
+  const filteredOffers = offers.filter((offer) => offer.city.name === currentCity.name);
   const dispatch = useAppDispatch();
   const handleCityClick = (nameCity: CityType['name']) => {
     const chooseCity = cities.filter((city: CityType) => city.name === nameCity)[0];
 
     dispatch(changeCityAction(chooseCity));
-    dispatch(fillOfferListAction(offers.filter((offer) => offer.city.name === nameCity)));
+    dispatch(fillOfferListAction(filteredOffers));
     dispatch(chooseSortingOptionsAction(VariantsSorting.POPULAR));
   };
+
 
   return (
     <div className="tabs">

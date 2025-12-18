@@ -1,8 +1,8 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import { SortingOptionType } from '../../types/sorting-options-type.tsx';
 import { VariantsSorting } from '../constants/variants-sorting/variants-sorting.tsx';
 
-export const getSortedOptions = (offers: OfferTypeProps[], sortingOption: SortingOptionType) => {
+export const getSortedOptions = (offers: OfferListType[], sortingOption: SortingOptionType) => {
   const offersCopy = [...offers];
 
   switch (sortingOption) {

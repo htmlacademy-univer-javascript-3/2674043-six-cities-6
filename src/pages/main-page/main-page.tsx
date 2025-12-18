@@ -1,4 +1,4 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import {useState} from 'react';
 import OffersList from '../../components/offer-list/offer-list.tsx';
 import Map from '../../components/map/map.tsx';
@@ -7,7 +7,8 @@ import { cities } from '../../mocks/cities.ts';
 import Header from '../../components/header/header.tsx';
 
 function MainPage(): JSX.Element {
-  const [chosenIdOffer, setChosenIdOffer] = useState<OfferTypeProps['id'] | null>(null);
+  const [chosenIdOffer, setChosenIdOffer] = useState<OfferListType['id'] | null>(null);
+
   return (
     <div className="page page--gray page--main">
       <Header/>

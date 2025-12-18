@@ -1,6 +1,6 @@
-import { OfferTypeProps } from '../types/offer-type.tsx';
+import { OfferListType } from '../types/offer-list-type.tsx';
 
-export const offers: OfferTypeProps[] = [
+export const offers: OfferListType[] = [
   {
     id: '30db61a3-7dd1-4c17-94bb-90eb99fabc51',
     title: 'Penthouse, 4-5 rooms + 5 balconies',

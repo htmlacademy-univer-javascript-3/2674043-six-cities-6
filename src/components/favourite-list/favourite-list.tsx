@@ -1,8 +1,8 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import FavouriteCard from '../favourite-card/favourite-card.tsx';
 
 type FavouriteListProps = {
-  offers: OfferTypeProps[];
+  offers: OfferListType[];
 };
 
 function FavouriteList({ offers }: FavouriteListProps): JSX.Element {

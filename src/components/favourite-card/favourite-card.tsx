@@ -1,9 +1,9 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../constants/path-route/path-route.tsx';
 
 type FavouriteCardProps = {
-  offer: OfferTypeProps;
+  offer: OfferListType;
 };
 
 function FavouriteCard({offer}: FavouriteCardProps): JSX.Element {

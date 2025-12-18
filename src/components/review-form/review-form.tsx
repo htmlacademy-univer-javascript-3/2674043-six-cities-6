@@ -1,22 +1,28 @@
-﻿import {ChangeEvent, Fragment, useState} from 'react';
-
+﻿import {ChangeEvent, Fragment, useState, FormEvent} from 'react';
+import { fetchAddComments } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { AddCommentData } from '../../types/addCommentData';
+import { useParams } from 'react-router-dom';
+import { AuthorizationStatus } from '../constants/authorization-status/authorization-status';
 
 const ratingMap = {
-  '3': '5-stars',
-  '2': '4-stars',
-  '4': '3-stars',
-  '1': '2-stars',
-  '5': '1-stars',
+  '5': '5-stars',
+  '4': '4-stars',
+  '3': '3-stars',
+  '2': '2-stars',
+  '1': '1-stars',
 };
 
 function ReviewForm() {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const isValid = comment.length >= 50 &&
+  function isValid() {
+    return comment.length >= 50 &&
     comment.length <= 300 &&
     rating !== '';
-
+  }
 
   function handleTextareaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);
@@ -26,8 +32,52 @@ function ReviewForm() {
     setRating(evt.target.value);
   }
 
+  const dispatch = useAppDispatch();
+  const {id} = useParams<{ id: string }>();
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault(); // Важно!
+
+    if (!id || !isValid()) {
+      return;
+    }
+
+    const commentForAdd: AddCommentData = {
+      offerId: id,
+      comment: comment,
+      rating: Number(rating)
+    };
+
+    dispatch(fetchAddComments(commentForAdd));
+  }
+
+  if (authorizationStatus !== AuthorizationStatus.Auth){
+    return (
+      <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+        <label className="reviews__label form__label" htmlFor="review">Your review</label>
+        <div className="reviews__rating-form form__rating">
+          {
+            Object.entries(ratingMap).reverse().map(([score, status]) => (
+              <Fragment key={status}>
+                <input
+                  key={status}
+                  className="form__rating-input visually-hidden"
+                  name="rating"
+                  value={score}
+                  id={status}
+                  type="radio"
+                  checked={rating === score}
+                  onChange={handleInputChange}
+                />
+              </Fragment>
+            ))
+          }
+        </div>
+      </form>
+    );
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
@@ -65,7 +115,7 @@ function ReviewForm() {
           describe your
           stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid()}>Submit</button>
       </div>
     </form>
   );
