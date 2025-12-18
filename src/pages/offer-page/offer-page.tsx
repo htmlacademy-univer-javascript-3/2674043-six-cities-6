@@ -15,9 +15,9 @@ import Spinner from '../../components/spinner/spinner.tsx';
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams<{ id: string }>();
-  const isLoadCurrentOffer = useAppSelector((state) => state.isLoadCurrentOffer);
-  const isLoadComments = useAppSelector((state) => state.isLoadComments);
-  const isLoadNearbyOffers = useAppSelector((state) => state.isLoadNearbyOffers);
+  const isLoadCurrentOffer = useAppSelector((state) => state.offers.isLoadCurrentOffer);
+  const isLoadComments = useAppSelector((state) => state.comments.isLoadComments);
+  const isLoadNearbyOffers = useAppSelector((state) => state.offers.isLoadNearbyOffers);
   useEffect(() => {
     if (id) {
       dispatch(fetchCurrentOffer(id));
@@ -25,9 +25,9 @@ function OfferPage(): JSX.Element {
       dispatch(fetchNearbyOffers(id));
     }
   }, [id, dispatch]);
-  const comments = useAppSelector((state) => state.comments);
-  const choosedOffer = useAppSelector((state) => state.currentOffer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments.comments);
+  const choosedOffer = useAppSelector((state) => state.offers.currentOffer);
+  const nearbyOffers = useAppSelector((state) => state.offers.nearbyOffers);
   const [chosenIdOffer, setChosenIdOffer] = useState<OfferListType['id'] | null>(null);
 
   if (!isLoadCurrentOffer || !choosedOffer || !isLoadComments || !isLoadNearbyOffers){

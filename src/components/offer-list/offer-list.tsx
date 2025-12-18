@@ -11,10 +11,10 @@ type OffersListProps = {
 };
 
 function OffersList({setChosenCard, typeOffer}: OffersListProps): JSX.Element {
-  const isLoadOfferList = useAppSelector((state) => state.isLoadOfferList);
-  const currentCity = useAppSelector((state) => state.city);
-  const currentSortedOption = useAppSelector((state) => state.sortingOption);
-  const offers = useAppSelector((state) => state.filteredOffersByCity);
+  const isLoadOfferList = useAppSelector((state) => state.offers.isLoadOfferList);
+  const currentCity = useAppSelector((state) => state.offers.city);
+  const currentSortedOption = useAppSelector((state) => state.ui.sortingOption);
+  const offers = useAppSelector((state) => state.offers.filteredOffersByCity);
   const sortedOffers = getSortedOptions(offers, currentSortedOption);
 
   if (!isLoadOfferList) {

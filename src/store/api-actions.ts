@@ -15,7 +15,7 @@ import { ApiRoute } from '../components/constants/api-routers/api-routers.tsx';
 import { AuthorizationStatus } from '../components/constants/authorization-status/authorization-status.tsx';
 import { UserType } from '../types/user-info.tsx';
 import { AuthorizationDataType } from '../types/authorization-data.tsx';
-import { setToken } from '../services/token.ts';
+import { setToken, dropToken } from '../services/token.ts';
 import { AppRoute } from '../components/constants/path-route/path-route.tsx';
 import { OfferType } from '../types/offer.-type.tsx';
 import ReviewProps from '../types/review-card-type.tsx';
@@ -112,5 +112,15 @@ export const fetchAddComments = createAsyncThunk<void, AddCommentData, ExtraType
     const {data} = await api.post<ReviewProps>(`${ApiRoute.COMMENTS}/${offerId}`, {comment, rating});
     dispatch(addCommentsAction(data));
     dispatch(fetchComments(offerId));
+  }
+);
+
+export const logoutUser = createAsyncThunk<void, undefined, ExtraType>(
+  'user/logoutUser',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete<UserType>(ApiRoute.LOGOUT);
+    dispatch(redirectAction(AppRoute.ROOT));
+    dropToken();
+    dispatch(changeStatusAuthorizationAction(AuthorizationStatus.NoAuth));
   }
 );

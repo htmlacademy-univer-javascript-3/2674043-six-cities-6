@@ -7,6 +7,7 @@ import { AuthorizationStatus } from '../components/constants/authorization-statu
 import { AppRoute } from '../components/constants/path-route/path-route.tsx';
 import { OfferType } from '../types/offer.-type.tsx';
 import ReviewProps from '../types/review-card-type.tsx';
+import { UserType } from '../types/user-info.tsx';
 
 export const changeCityAction = createAction(Action.CHANGE_CITY, (city: CityType) => (
   {
@@ -42,3 +43,4 @@ export const addCommentsAction = createAction<ReviewProps>(Action.ADD_COMMENTS);
 export const setUserName = createAction<string>(Action.SET_USER_NAME);
 export const setUserAvatarUrl = createAction<string>(Action.SET_USER_AVATARURL);
 export const setUserStatusPro = createAction<boolean>(Action.SET_USER_STATUS_PRO);
+export const logoutAction = createAction<UserType>(Action.LOGOUT);
