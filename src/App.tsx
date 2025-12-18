@@ -6,25 +6,20 @@ import FavouritePage from './pages/favourite-page/favourite-page.tsx';
 import NotFound from './pages/not-found/not-found.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
 import { AppRoute } from './components/constants/path-route/path-route.tsx';
-import { useAppSelector, useAppDispatch} from './hooks/index.tsx';
-import { AuthorizationStatus } from './components/constants/authorization-status/authorization-status.tsx';
-import { changeStatusAuthorizationAction } from './store/action.ts';
+import { useAppSelector } from './hooks/index.tsx';
 import HistoryRouter from './components/history-router/history-router.tsx';
 import browserHistory from './components/browser-history/browser-history.tsx';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const dispatch = useAppDispatch();
-  if (authorizationStatus === AuthorizationStatus.Auth){
-    dispatch(changeStatusAuthorizationAction(AuthorizationStatus.Auth));
-  }
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.ROOT} element={<MainPage/>}></Route>
         <Route path={AppRoute.LOGIN} element={<LoginPage/>}></Route>
         <Route path={AppRoute.FAVORITES} element={<PrivateRoute authorizationStatus={authorizationStatus}><FavouritePage/></PrivateRoute>}></Route>
-        <Route path={AppRoute.OFFER} element={<OfferPage/>}></Route>
+        <Route path={`${AppRoute.OFFER}/:id`} element={<OfferPage/>}></Route>
         <Route path={AppRoute.NOT_FOUND} element={<NotFound/>}></Route>
       </Routes>
     </HistoryRouter>

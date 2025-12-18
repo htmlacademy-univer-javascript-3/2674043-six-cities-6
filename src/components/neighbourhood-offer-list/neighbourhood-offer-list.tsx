@@ -1,9 +1,9 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import OfferCard from '../offer-card/offer-card.tsx';
 
 type OffersListProps = {
-  offers: OfferTypeProps[];
-  setChosenCard: (id: OfferTypeProps['id'] | null) => void;
+  offers: OfferListType[];
+  setChosenCard: (id: OfferListType['id'] | null) => void;
   typeOffer: string;
 };
 

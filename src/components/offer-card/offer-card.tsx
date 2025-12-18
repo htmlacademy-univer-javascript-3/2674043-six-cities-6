@@ -1,9 +1,9 @@
-import { OfferTypeProps } from '../../types/offer-type.tsx';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../constants/path-route/path-route.tsx';
 
 type OfferCardProps = {
-  offer: OfferTypeProps;
+  offer: OfferListType;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   typeOffer: string;
@@ -20,6 +20,7 @@ function OfferCard({offer, onMouseEnter, onMouseLeave, typeOffer}: OfferCardProp
     type,
     rating,
   } = offer;
+
   return (
     <article
       className={`${typeOffer}__card place-card`}
@@ -32,9 +33,9 @@ function OfferCard({offer, onMouseEnter, onMouseLeave, typeOffer}: OfferCardProp
         </div>
       )}
       <div className={`${typeOffer}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={`${AppRoute.OFFER}/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -56,7 +57,7 @@ function OfferCard({offer, onMouseEnter, onMouseLeave, typeOffer}: OfferCardProp
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

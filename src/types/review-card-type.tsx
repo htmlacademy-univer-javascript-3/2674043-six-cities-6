@@ -5,7 +5,7 @@ type User = {
 }
 
 type ReviewProps = {
-  id: string;
+  id: string | undefined;
   comment: string;
   date: string;
   rating: number;
