@@ -1,11 +1,9 @@
-import { OfferListType } from '../../types/offer-list-type.tsx';
+import { useAppSelector } from '../../hooks/index.tsx';
 import FavouriteCard from '../favourite-card/favourite-card.tsx';
 
-type FavouriteListProps = {
-  offers: OfferListType[];
-};
 
-function FavouriteList({ offers }: FavouriteListProps): JSX.Element {
+function FavouriteList(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers.favouriteOffers);
   return (
     <div className="favorites__places">
       {offers.map((offer) => (
