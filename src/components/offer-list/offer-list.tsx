@@ -4,6 +4,7 @@ import { useAppSelector } from '../../hooks/index.tsx';
 import SortingOption from '../sorting-options/sorting-options.tsx';
 import { getSortedOptions } from '../sorting-options/get-sorted-options.tsx';
 import Spinner from '../spinner/spinner.tsx';
+import { memo } from 'react';
 
 type OffersListProps = {
   setChosenCard: (id: OfferListType['id'] | null) => void;
@@ -48,4 +49,5 @@ function OffersList({setChosenCard, typeOffer}: OffersListProps): JSX.Element {
   );
 }
 
-export default OffersList;
+const MemoOfferList = memo(OffersList);
+export default MemoOfferList;

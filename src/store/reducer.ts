@@ -11,5 +11,4 @@ export const reducer = combineReducers({
   user: userReducer,
 });
 
-// Экспортируем типы для удобства
 export type RootState = ReturnType<typeof reducer>;

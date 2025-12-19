@@ -44,3 +44,5 @@ export const setUserName = createAction<string>(Action.SET_USER_NAME);
 export const setUserAvatarUrl = createAction<string>(Action.SET_USER_AVATARURL);
 export const setUserStatusPro = createAction<boolean>(Action.SET_USER_STATUS_PRO);
 export const logoutAction = createAction<UserType>(Action.LOGOUT);
+export const GetFavouriteOffersAction = createAction<OfferListType[]>(Action.GET_FAVOURITE_OFFERS);
+export const UpdateFavouriteStatus = createAction<{id:string;isFavorite:boolean}>(Action.UPDATE_FAVOURITE_STATUS);

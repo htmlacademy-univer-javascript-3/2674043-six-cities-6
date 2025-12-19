@@ -12,6 +12,7 @@ import {
   setCurrentOfferAction,
   getNearbyOffersAction,
   changeStatusNearbyOffersAction,
+  GetFavouriteOffersAction,
 } from '../action';
 
 interface OffersState {
@@ -20,6 +21,7 @@ interface OffersState {
   filteredOffersByCity: OfferListType[];
   currentOffer: OfferType | null;
   nearbyOffers: OfferListType[];
+  favouriteOffers: OfferListType[];
   isLoadOfferList: boolean;
   isLoadCurrentOffer: boolean;
   isLoadNearbyOffers: boolean;
@@ -31,6 +33,7 @@ const initialState: OffersState = {
   filteredOffersByCity: [],
   currentOffer: null,
   nearbyOffers: [],
+  favouriteOffers: [],
   isLoadOfferList: false,
   isLoadCurrentOffer: false,
   isLoadNearbyOffers: false,
@@ -69,7 +72,11 @@ const offersSlice = createSlice({
       .addCase(changeCityAction, (state, action) => {
         state.city.name = action.payload.name;
         state.city.location = action.payload.location;
+      })
+      .addCase(GetFavouriteOffersAction, (state, action) => {
+        state.favouriteOffers = action.payload;
       });
+
   },
 });
 

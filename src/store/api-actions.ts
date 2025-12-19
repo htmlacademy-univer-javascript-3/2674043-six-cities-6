@@ -10,6 +10,8 @@ import { changeStatusAuthorizationAction, changeStatusLoadOfferListAction,
   getCommentAction, getNearbyOffersAction,
   changeStatusNearbyOffersAction,
   addCommentsAction,
+  GetFavouriteOffersAction,
+  setUserAvatarUrl, setUserName, setUserStatusPro,
 } from './action.ts';
 import { ApiRoute } from '../components/constants/api-routers/api-routers.tsx';
 import { AuthorizationStatus } from '../components/constants/authorization-status/authorization-status.tsx';
@@ -55,7 +57,10 @@ export const fetchAuthorizationStatus = createAsyncThunk<void, undefined, ExtraT
   'user/fetchAuthorizationStatus',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get<AuthorizationStatus>(ApiRoute.LOGIN);
+      const {data} = await api.get<UserType>(ApiRoute.LOGIN);
+      dispatch(setUserName(data.name));
+      dispatch(setUserAvatarUrl(data.avatarUrl));
+      dispatch(setUserStatusPro(data.isPro));
       dispatch(changeStatusAuthorizationAction(AuthorizationStatus.Auth));
     } catch {
       dispatch(changeStatusAuthorizationAction(AuthorizationStatus.NoAuth));
@@ -120,7 +125,34 @@ export const logoutUser = createAsyncThunk<void, undefined, ExtraType>(
   async (_arg, {dispatch, extra: api}) => {
     await api.delete<UserType>(ApiRoute.LOGOUT);
     dispatch(redirectAction(AppRoute.ROOT));
-    dropToken();
+    dispatch(dropToken);
     dispatch(changeStatusAuthorizationAction(AuthorizationStatus.NoAuth));
+  }
+);
+
+export const fetchFavouriteOffers = createAsyncThunk<void, undefined, ExtraType>(
+  'data/getFavouriteOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferListType[]>(ApiRoute.FAVOURITE);
+    dispatch(GetFavouriteOffersAction(data));
+  }
+);
+
+
+export const changeFavouriteStatus = createAsyncThunk<void, OfferType['id'], ExtraType>(
+  'data/changeFavouriteStatus',
+  async (offerId, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<OfferListType[]>(ApiRoute.FAVOURITE);
+      if (data.filter((offer) => offer.id === offerId).length > 0){
+        await api.post<OfferListType>(`${ApiRoute.FAVOURITE}/${offerId}/0`);
+      } else {
+        await api.post<OfferListType>(`${ApiRoute.FAVOURITE}/${offerId}/1`);
+      }
+      dispatch(fetchFavouriteOffers());
+      dispatch(fetchOffers());
+    } catch {
+      dispatch(redirectAction(AppRoute.LOGIN));
+    }
   }
 );
