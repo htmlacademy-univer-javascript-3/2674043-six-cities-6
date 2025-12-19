@@ -5,5 +5,6 @@ export enum ApiRoute {
   COMMENTS = '/comments',
   NEARBY = '/nearby',
   LOGOUT = '/logout',
+  FAVOURITE = '/favorite',
 }
 

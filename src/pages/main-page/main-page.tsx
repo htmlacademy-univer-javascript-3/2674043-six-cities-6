@@ -5,9 +5,23 @@ import Map from '../../components/map/map.tsx';
 import CityList from '../../components/city-list/city-list.tsx';
 import { cities } from '../../mocks/cities.ts';
 import Header from '../../components/header/header.tsx';
+import { useCallback } from 'react';
+import { useAppSelector } from '../../hooks/index.tsx';
+import MainEmpty from './main-empty.tsx';
 
 function MainPage(): JSX.Element {
+  const isLoadOffers = useAppSelector((state) => state.offers.isLoadOfferList);
   const [chosenIdOffer, setChosenIdOffer] = useState<OfferListType['id'] | null>(null);
+  const setChosenId = useCallback(
+    (id: OfferListType['id'] | null) => setChosenIdOffer(id),
+    []
+  );
+
+  if (!isLoadOffers) {
+    return (
+      <MainEmpty/>
+    );
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -18,7 +32,7 @@ function MainPage(): JSX.Element {
         <div className="cities">
           <div className="cities__places-container container">
             <OffersList
-              setChosenCard={setChosenIdOffer}
+              setChosenCard={setChosenId}
               typeOffer="cities"
             />
             <div className="cities__right-section">
