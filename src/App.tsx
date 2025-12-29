@@ -10,9 +10,9 @@ import { useAppSelector } from './hooks/index.tsx';
 import HistoryRouter from './components/history-router/history-router.tsx';
 import browserHistory from './components/browser-history/browser-history.tsx';
 
+
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
-
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>

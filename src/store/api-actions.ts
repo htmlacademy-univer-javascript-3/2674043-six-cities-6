@@ -12,6 +12,7 @@ import { changeStatusAuthorizationAction, changeStatusLoadOfferListAction,
   addCommentsAction,
   GetFavouriteOffersAction,
   setUserAvatarUrl, setUserName, setUserStatusPro,
+  changeStatusCheckingAuth,
 } from './action.ts';
 import { ApiRoute } from '../components/constants/api-routers/api-routers.tsx';
 import { AuthorizationStatus } from '../components/constants/authorization-status/authorization-status.tsx';
@@ -58,13 +59,16 @@ export const fetchAuthorizationStatus = createAsyncThunk<void, undefined, ExtraT
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<UserType>(ApiRoute.LOGIN);
+      dispatch(changeStatusCheckingAuth(false));
       dispatch(setUserName(data.name));
       dispatch(setUserAvatarUrl(data.avatarUrl));
       dispatch(setUserStatusPro(data.isPro));
+      dispatch(setUserEmailAction(data.email));
       dispatch(changeStatusAuthorizationAction(AuthorizationStatus.Auth));
     } catch {
       dispatch(changeStatusAuthorizationAction(AuthorizationStatus.NoAuth));
     }
+    dispatch(changeStatusCheckingAuth(true));
   }
 );
 
@@ -88,7 +92,7 @@ export const fetchNearbyOffers = createAsyncThunk<void, OfferType['id'], ExtraTy
     try {
       dispatch(changeStatusNearbyOffersAction(false));
       const {data} = await api.get<OfferListType[]>(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`);
-      dispatch(getNearbyOffersAction(data));
+      dispatch(getNearbyOffersAction(data.slice(0, 3)));
       dispatch(changeStatusNearbyOffersAction(true));
     } catch {
       dispatch(changeStatusNearbyOffersAction(false));
@@ -100,6 +104,7 @@ export const loginUser = createAsyncThunk<void, AuthorizationDataType, ExtraType
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserType>(ApiRoute.LOGIN, {email, password});
+    dispatch(changeStatusCheckingAuth(false));
     setToken(token);
     dispatch(changeStatusAuthorizationAction(AuthorizationStatus.Auth));
     dispatch(setUserEmailAction(email));
@@ -107,6 +112,7 @@ export const loginUser = createAsyncThunk<void, AuthorizationDataType, ExtraType
     // dispatch(setUserName());
     // dispatch()
     dispatch(redirectAction(AppRoute.ROOT));
+    dispatch(changeStatusCheckingAuth(true));
   }
 );
 
@@ -149,10 +155,31 @@ export const changeFavouriteStatus = createAsyncThunk<void, OfferType['id'], Ext
       } else {
         await api.post<OfferListType>(`${ApiRoute.FAVOURITE}/${offerId}/1`);
       }
-      dispatch(fetchFavouriteOffers());
+      await dispatch(fetchFavouriteOffers());
+      dispatch(fetchNearbyOffers(offerId));
       dispatch(fetchOffers());
     } catch {
       dispatch(redirectAction(AppRoute.LOGIN));
     }
   }
 );
+
+export const changeFavouriteStatusCurrentOffer = createAsyncThunk<void, OfferType['id'], ExtraType>(
+  'data/changeFavouriteStatus',
+  async (offerId, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<OfferListType[]>(ApiRoute.FAVOURITE);
+      if (data.filter((offer) => offer.id === offerId).length > 0){
+        await api.post<OfferListType>(`${ApiRoute.FAVOURITE}/${offerId}/0`);
+      } else {
+        await api.post<OfferListType>(`${ApiRoute.FAVOURITE}/${offerId}/1`);
+      }
+      await dispatch(fetchFavouriteOffers());
+      dispatch(fetchCurrentOffer(offerId));
+      dispatch(fetchOffers());
+    } catch {
+      dispatch(redirectAction(AppRoute.LOGIN));
+    }
+  }
+);
+

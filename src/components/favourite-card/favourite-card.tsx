@@ -1,6 +1,8 @@
 import { OfferListType } from '../../types/offer-list-type.tsx';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../constants/path-route/path-route.tsx';
+import { changeFavouriteStatus } from '../../store/api-actions.ts';
+import { useAppDispatch } from '../../hooks/index.tsx';
 
 type FavouriteCardProps = {
   offer: OfferListType;
@@ -17,6 +19,11 @@ function FavouriteCard({offer}: FavouriteCardProps): JSX.Element {
     type,
     rating
   } = offer;
+  const dispatch = useAppDispatch();
+  const handleFavoriteClick = () => {
+    dispatch(changeFavouriteStatus(id));
+
+  };
   return (
     <article className="favorites__card place-card">
       {isPremium && (
@@ -35,7 +42,7 @@ function FavouriteCard({offer}: FavouriteCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button" onClick={handleFavoriteClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
