@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfferListType } from '../../types/offer-list-type';
+import { OfferListType } from '../../types/offer-list-type.tsx';
 import { OfferType } from '../../types/offer.-type.tsx';
 import { CityType } from '../../types/city-type.tsx';
 import { cities } from '../../mocks/cities.ts';
-import { changeCityAction } from '../action';
+import { changeCityAction } from '../action.ts';
 import {
   loadOfferListAction,
   fillOfferListAction,
@@ -13,7 +13,7 @@ import {
   getNearbyOffersAction,
   changeStatusNearbyOffersAction,
   GetFavouriteOffersAction,
-} from '../action';
+} from '../action.ts';
 
 interface OffersState {
   city: CityType;

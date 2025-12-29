@@ -26,10 +26,8 @@ const currentCustomIcon = leaflet.icon({
 
 function Map({chosenIdOffer, className, offers}: MapProps) {
   const city = useAppSelector((state) => state.offers.city);
-  // const offers = useAppSelector((state) => state.offers.offers);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city.location);
-
 
   useEffect(() => {
     if (map) {

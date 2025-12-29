@@ -18,11 +18,11 @@ import { ApiRoute } from '../components/constants/api-routers/api-routers.tsx';
 import { AuthorizationStatus } from '../components/constants/authorization-status/authorization-status.tsx';
 import { UserType } from '../types/user-info.tsx';
 import { AuthorizationDataType } from '../types/authorization-data.tsx';
-import { setToken, dropToken } from '../services/token.ts';
+import { setToken, dropToken } from '../api/token.ts';
 import { AppRoute } from '../components/constants/path-route/path-route.tsx';
 import { OfferType } from '../types/offer.-type.tsx';
 import ReviewProps from '../types/review-card-type.tsx';
-import { AddCommentData } from '../types/addCommentData.tsx';
+import { AddCommentData } from '../types/add-comment-data.tsx';
 
 type ExtraType = {
   extra: AxiosInstance;

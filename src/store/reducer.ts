@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import uiReducer from './slices/ui-slices.ts';
-import offersReducer from './slices/offers-slice.ts';
-import commentsReducer from './slices/comments-slice.ts';
-import userReducer from './slices/user-slice.ts';
+import uiReducer from './api-acions/ui-slices.ts';
+import offersReducer from './api-acions/offers-slice.ts';
+import commentsReducer from './api-acions/comments-slice.ts';
+import userReducer from './api-acions/user-slice.ts';
 
 export const reducer = combineReducers({
   ui: uiReducer,
