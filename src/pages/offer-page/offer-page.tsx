@@ -1,12 +1,10 @@
 import ReviewList from '../../components/review-list/review-list.tsx';
-import { OfferListType } from '../../types/offer-list-type.tsx';
-import {useState} from 'react';
 import Map from '../../components/map/map.tsx';
 import NeighbourhoodOfferList from '../../components/neighbourhood-offer-list/neighbourhood-offer-list.tsx';
 import { useAppSelector, useAppDispatch } from '../../hooks/index.tsx';
 import Header from '../../components/header/header.tsx';
 import { useParams } from 'react-router-dom';
-import { fetchCurrentOffer, fetchComments, fetchNearbyOffers } from '../../store/api-actions.ts';
+import { fetchCurrentOffer, fetchComments, fetchNearbyOffers, changeFavouriteStatusCurrentOffer } from '../../store/api-actions.ts';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
 import Spinner from '../../components/spinner/spinner.tsx';
@@ -18,6 +16,11 @@ function OfferPage(): JSX.Element {
   const isLoadCurrentOffer = useAppSelector((state) => state.offers.isLoadCurrentOffer);
   const isLoadComments = useAppSelector((state) => state.comments.isLoadComments);
   const isLoadNearbyOffers = useAppSelector((state) => state.offers.isLoadNearbyOffers);
+  const handleFavoriteClick = () => {
+    if (id) {
+      dispatch(changeFavouriteStatusCurrentOffer(id));
+    }
+  };
   useEffect(() => {
     if (id) {
       dispatch(fetchCurrentOffer(id));
@@ -28,7 +31,10 @@ function OfferPage(): JSX.Element {
   const comments = useAppSelector((state) => state.comments.comments);
   const choosedOffer = useAppSelector((state) => state.offers.currentOffer);
   const nearbyOffers = useAppSelector((state) => state.offers.nearbyOffers);
-  const [chosenIdOffer, setChosenIdOffer] = useState<OfferListType['id'] | null>(null);
+  let offersForMap = [...nearbyOffers];
+  if (choosedOffer !== null){
+    offersForMap = [...nearbyOffers, choosedOffer];
+  }
 
   if (!isLoadCurrentOffer || !choosedOffer || !isLoadComments || !isLoadNearbyOffers){
     return (
@@ -67,11 +73,11 @@ function OfferPage(): JSX.Element {
                 <h1 className="offer__name">
                   {choosedOffer.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button className={`offer__bookmark-button button ${choosedOffer.isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button" onClick={handleFavoriteClick}>
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">{choosedOffer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
                 </button>
               </div>
               <div className="offer__rating rating">
@@ -93,7 +99,7 @@ function OfferPage(): JSX.Element {
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;120</b>
+                <b className="offer__price-value">&euro;{choosedOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -134,14 +140,13 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <Map
-            chosenIdOffer={chosenIdOffer}
+            chosenIdOffer={String(id)}
             className='offer__map map'
+            offers={offersForMap}
           />
         </section>
         <NeighbourhoodOfferList
           offers={nearbyOffers}
-          setChosenCard={setChosenIdOffer}
-          typeOffer="near-places"
         />
       </main>
     </div>

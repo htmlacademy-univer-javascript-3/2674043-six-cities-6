@@ -64,7 +64,7 @@ function OfferCard({offer, onMouseEnter, onMouseLeave, typeOffer}: OfferCardProp
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <div>{title}</div>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

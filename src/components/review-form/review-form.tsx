@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AddCommentData } from '../../types/addCommentData';
 import { useParams } from 'react-router-dom';
 import { AuthorizationStatus } from '../constants/authorization-status/authorization-status';
+import { CommentLentgh } from '../constants/comment/comment';
 
 const ratingMap = {
   '5': '5-stars',
@@ -19,8 +20,8 @@ function ReviewForm() {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   function isValid() {
-    return comment.length >= 50 &&
-    comment.length <= 300 &&
+    return comment.length >= Number(CommentLentgh.Min) &&
+    comment.length <= Number(CommentLentgh.Max) &&
     rating !== '';
   }
 

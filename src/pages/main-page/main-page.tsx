@@ -12,6 +12,7 @@ import MainEmpty from './main-empty.tsx';
 function MainPage(): JSX.Element {
   const isLoadOffers = useAppSelector((state) => state.offers.isLoadOfferList);
   const [chosenIdOffer, setChosenIdOffer] = useState<OfferListType['id'] | null>(null);
+  const offers = useAppSelector((state) => state.offers.offers);
   const setChosenId = useCallback(
     (id: OfferListType['id'] | null) => setChosenIdOffer(id),
     []
@@ -38,6 +39,7 @@ function MainPage(): JSX.Element {
             <div className="cities__right-section">
               <Map
                 chosenIdOffer={chosenIdOffer}
+                offers={offers}
                 className='cities__map map'
               />
             </div>

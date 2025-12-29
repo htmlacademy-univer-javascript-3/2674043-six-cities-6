@@ -7,6 +7,7 @@ import {
   setUserName,
   setUserAvatarUrl,
   setUserStatusPro,
+  changeStatusCheckingAuth,
 } from '../action';
 
 interface UserState {
@@ -16,6 +17,7 @@ interface UserState {
   name: string;
   avatarUrl: string;
   isPro: boolean;
+  isCheckingAuth: boolean;
 }
 
 const initialState: UserState = {
@@ -25,6 +27,7 @@ const initialState: UserState = {
   name: '',
   avatarUrl: '',
   isPro: false,
+  isCheckingAuth: false,
 };
 
 const userSlice = createSlice({
@@ -50,6 +53,9 @@ const userSlice = createSlice({
       })
       .addCase(setUserStatusPro, (state, action: PayloadAction<boolean>) => {
         state.isPro = action.payload;
+      })
+      .addCase(changeStatusCheckingAuth, (state, action: PayloadAction<boolean>) => {
+        state.isCheckingAuth = action.payload;
       });
   },
 });

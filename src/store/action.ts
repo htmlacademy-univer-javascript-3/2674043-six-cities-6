@@ -33,6 +33,7 @@ export const changeStatusAuthorizationAction = createAction<AuthorizationStatus>
 export const changeStatusCurrentOFferAction = createAction<boolean>(Action.CHANGE_SATUS_LOAD_OFFER);
 export const changeStatusCommentsAction = createAction<boolean>(Action.CHANGE_STATUS_LOAD_COMMENTS);
 export const changeStatusNearbyOffersAction = createAction<boolean>(Action.CHANGE_STATUS_LOAD_NEARBY_OFFERS);
+export const changeStatusCheckingAuth = createAction<boolean>(Action.CHANGE_STATUS_CHECKING_AUTH);
 export const redirectAction = createAction<AppRoute>(Action.REDIRECT);
 export const setUserEmailAction = createAction<string | null>(Action.SET_USER_EMAIL);
 export const setUserPasswordAction = createAction<string | null>(Action.SET_USER_PASSWORD);
