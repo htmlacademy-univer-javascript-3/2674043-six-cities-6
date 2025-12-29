@@ -13,13 +13,12 @@ function CityList({cities}: CityListProps) {
   const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.offers.city);
   const nameOfCities = cities.map((city) => city.name);
-  const filteredOffers = offers.offers.filter((offer) => offer.city.name === currentCity.name);
   const dispatch = useAppDispatch();
   const handleCityClick = (nameCity: CityType['name']) => {
     const chooseCity = cities.filter((city: CityType) => city.name === nameCity)[0];
 
     dispatch(changeCityAction(chooseCity));
-    dispatch(fillOfferListAction(filteredOffers));
+    dispatch(fillOfferListAction(offers.offers.filter((offer) => offer.city.name === chooseCity.name)));
     dispatch(chooseSortingOptionsAction(VariantsSorting.POPULAR));
   };
 
@@ -34,7 +33,6 @@ function CityList({cities}: CityListProps) {
                 className={`locations__item-link tabs__item ${
                   currentCity.name === nameCity ? 'tabs__item--active' : ''
                 }`}
-                // href="#"
                 onClick={() => {
                   handleCityClick(nameCity);
                 }}

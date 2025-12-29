@@ -1,7 +1,7 @@
 ﻿import {ChangeEvent, Fragment, useState, FormEvent} from 'react';
 import { fetchAddComments } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AddCommentData } from '../../types/addCommentData';
+import { AddCommentData } from '../../types/add-comment-data';
 import { useParams } from 'react-router-dom';
 import { AuthorizationStatus } from '../constants/authorization-status/authorization-status';
 import { CommentLentgh } from '../constants/comment/comment';
